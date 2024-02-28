@@ -3,33 +3,32 @@ package main
 import (
 	"fmt"
 )
-
+var arr = []int{}
 func main() {
-	fmt.Println(SumOfIntervals([][2]int{{1, 6}, {-7, 10}, {3, 5}}))
+	slice := []int{7,20,3,7,5,6,7,8}
+	fmt.Println(linearSearch(slice, 7))
 }
 
+func linearSearch(slice []int, target int) []int {
+	return helper(slice, target, len(slice)-1)
+}
 
-func SumOfIntervals(intervals [][2]int) (n int) {
-	for i := 0; i< len(intervals); i++ {
-		for j:= 0; j < len(intervals)- i -1; j++{
-			if intervals[j][0] > intervals[j+1][0]{
-				intervals[j], intervals[j+1] = intervals[j+1], intervals[j]
-			}
-		}
+func helper(slice []int, target, count int) []int {
+	if count < 0 {
+		return nil
 	}
-	fmt.Println(intervals)
-	num := intervals[0][0]
-	check := make(map[[2]int]bool)
-	for _, v := range intervals {
-	  if num > v[0]{
-		v[0] = num
-	  }
-	  if !check[v]  {
-		n += (v[1]-v[0])
-		check[v] = true
-		num = v[1]
-	  }
+	if slice[count] == target {
+		return  append(helper(slice, target, count-1), count)
 	}
-	return 
-  }
+	return helper(slice, target, count-1)
+}
 
+// func helper(slice []int, target, count int) []int {
+// 	if count == len(slice) {
+// 		return arr
+// 	}
+// 	if slice[count] ==  target {
+// 		arr = append(arr, count)
+// 	}
+// 	return  helper(slice, target, count+1)
+// }
