@@ -10,8 +10,5 @@ func helper(slice []int, count int) bool {
 	if count == 1 {
 		return true
 	}
-	if slice[count] < slice[count-1] {
-		return false
-	}
-	return helper(slice, count-1)
+	return slice[count] > slice[count-1] && helper(slice, count-1)
 }
